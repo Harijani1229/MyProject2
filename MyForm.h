@@ -18,9 +18,7 @@ namespace MyProject {
 		MyForm(void)
 		{
 			InitializeComponent();
-			//
-			//TODO: Add the constructor code here
-			//
+			ApplyModernTheme();
 		}
 
 	protected:
@@ -76,6 +74,7 @@ namespace MyProject {
 	private: System::Windows::Forms::Label^ label8;
 	private: System::Windows::Forms::Label^ label9;
 	private: System::Windows::Forms::DataGridView^ dgvRecent;
+	private: System::Windows::Forms::Label^ dashboardTitle;
 
 
 
@@ -103,6 +102,7 @@ namespace MyProject {
 		{
 			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
 			this->tabPage4 = (gcnew System::Windows::Forms::TabPage());
+			this->dashboardTitle = (gcnew System::Windows::Forms::Label());
 			this->dgvRecent = (gcnew System::Windows::Forms::DataGridView());
 			this->panel4 = (gcnew System::Windows::Forms::Panel());
 			this->label10 = (gcnew System::Windows::Forms::Label());
@@ -167,6 +167,7 @@ namespace MyProject {
 			// 
 			// tabPage4
 			// 
+			this->tabPage4->Controls->Add(this->dashboardTitle);
 			this->tabPage4->Controls->Add(this->dgvRecent);
 			this->tabPage4->Controls->Add(this->panel4);
 			this->tabPage4->Controls->Add(this->panel5);
@@ -178,9 +179,19 @@ namespace MyProject {
 			this->tabPage4->Name = L"tabPage4";
 			this->tabPage4->Size = System::Drawing::Size(890, 477);
 			this->tabPage4->TabIndex = 3;
-			this->tabPage4->Text = L"Dashboard";
+			this->tabPage4->Text = L"Overview";
 			this->tabPage4->UseVisualStyleBackColor = true;
 			this->tabPage4->Click += gcnew System::EventHandler(this, &MyForm::tabPage4_Click);
+			// 
+			// dashboardTitle
+			// 
+			this->dashboardTitle->AutoSize = true;
+			this->dashboardTitle->Font = (gcnew System::Drawing::Font(L"Segoe UI", 20, System::Drawing::FontStyle::Bold));
+			this->dashboardTitle->Location = System::Drawing::Point(249, 0);
+			this->dashboardTitle->Name = L"dashboardTitle";
+			this->dashboardTitle->Size = System::Drawing::Size(297, 54);
+			this->dashboardTitle->TabIndex = 4;
+			this->dashboardTitle->Text = L"Your Overview";
 			// 
 			// dgvRecent
 			// 
@@ -198,7 +209,7 @@ namespace MyProject {
 			// 
 			this->panel4->Controls->Add(this->label10);
 			this->panel4->Controls->Add(this->label11);
-			this->panel4->Location = System::Drawing::Point(540, 159);
+			this->panel4->Location = System::Drawing::Point(540, 182);
 			this->panel4->Name = L"panel4";
 			this->panel4->Size = System::Drawing::Size(230, 100);
 			this->panel4->TabIndex = 2;
@@ -227,7 +238,7 @@ namespace MyProject {
 			// 
 			this->panel5->Controls->Add(this->label12);
 			this->panel5->Controls->Add(this->label13);
-			this->panel5->Location = System::Drawing::Point(280, 159);
+			this->panel5->Location = System::Drawing::Point(280, 182);
 			this->panel5->Name = L"panel5";
 			this->panel5->Size = System::Drawing::Size(230, 100);
 			this->panel5->TabIndex = 2;
@@ -256,10 +267,11 @@ namespace MyProject {
 			// 
 			this->panel6->Controls->Add(this->label14);
 			this->panel6->Controls->Add(this->label15);
-			this->panel6->Location = System::Drawing::Point(540, 32);
+			this->panel6->Location = System::Drawing::Point(540, 75);
 			this->panel6->Name = L"panel6";
 			this->panel6->Size = System::Drawing::Size(230, 100);
 			this->panel6->TabIndex = 2;
+			this->panel6->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::panel6_Paint);
 			// 
 			// label14
 			// 
@@ -285,7 +297,7 @@ namespace MyProject {
 			// 
 			this->panel3->Controls->Add(this->label8);
 			this->panel3->Controls->Add(this->label9);
-			this->panel3->Location = System::Drawing::Point(24, 159);
+			this->panel3->Location = System::Drawing::Point(24, 182);
 			this->panel3->Name = L"panel3";
 			this->panel3->Size = System::Drawing::Size(230, 100);
 			this->panel3->TabIndex = 2;
@@ -314,7 +326,7 @@ namespace MyProject {
 			// 
 			this->panel2->Controls->Add(this->label6);
 			this->panel2->Controls->Add(this->label7);
-			this->panel2->Location = System::Drawing::Point(280, 32);
+			this->panel2->Location = System::Drawing::Point(280, 75);
 			this->panel2->Name = L"panel2";
 			this->panel2->Size = System::Drawing::Size(230, 100);
 			this->panel2->TabIndex = 1;
@@ -343,10 +355,11 @@ namespace MyProject {
 			// 
 			this->panel1->Controls->Add(this->label5);
 			this->panel1->Controls->Add(this->label4);
-			this->panel1->Location = System::Drawing::Point(24, 32);
+			this->panel1->Location = System::Drawing::Point(24, 75);
 			this->panel1->Name = L"panel1";
 			this->panel1->Size = System::Drawing::Size(230, 100);
 			this->panel1->TabIndex = 0;
+			this->panel1->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::panel1_Paint);
 			// 
 			// label5
 			// 
@@ -545,6 +558,7 @@ namespace MyProject {
 			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
 			this->tabControl1->ResumeLayout(false);
 			this->tabPage4->ResumeLayout(false);
+			this->tabPage4->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvRecent))->EndInit();
 			this->panel4->ResumeLayout(false);
 			this->panel4->PerformLayout();
@@ -568,6 +582,150 @@ namespace MyProject {
 
 		}
 #pragma endregion
+	private: System::Void ApplyModernTheme() {
+		Color pageBackground = Color::FromArgb(239, 242, 248);
+		Color surface = Color::White;
+		Color primary = Color::FromArgb(91, 76, 172);
+		Color text = Color::FromArgb(38, 42, 56);
+		Color mutedText = Color::FromArgb(82, 88, 108);
+		Color incomeColor = Color::FromArgb(35, 145, 105);
+		Color expenseColor = Color::FromArgb(205, 76, 91);
+		Color balanceColor = Color::FromArgb(48, 112, 190);
+		Color todayColor = Color::FromArgb(224, 139, 43);
+
+		this->BackColor = pageBackground;
+		this->ForeColor = text;
+		this->Font = gcnew Drawing::Font(L"Segoe UI", 10);
+		this->StartPosition = FormStartPosition::CenterScreen;
+		this->MinimumSize = Drawing::Size(900, 560);
+		this->tabControl1->Dock = DockStyle::Fill;
+		this->tabControl1->Padding = Drawing::Point(16, 8);
+		this->tabControl1->Font = gcnew Drawing::Font(L"Segoe UI Semibold", 10);
+		this->dashboardTitle->ForeColor = primary;
+		this->dashboardTitle->Font = gcnew Drawing::Font(L"Segoe UI", 20, Drawing::FontStyle::Bold);
+
+		for each (TabPage^ page in this->tabControl1->TabPages) {
+			page->BackColor = pageBackground;
+			page->ForeColor = text;
+			page->Padding = Windows::Forms::Padding(24);
+		}
+
+		array<Button^>^ buttons = gcnew array<Button^> { button1, button2, button3 };
+		for each (Button^ button in buttons) {
+			button->BackColor = primary;
+			button->ForeColor = Color::White;
+			button->FlatStyle = FlatStyle::Flat;
+			button->FlatAppearance->BorderSize = 0;
+			button->Font = gcnew Drawing::Font(L"Segoe UI Semibold", 10);
+			button->Cursor = Cursors::Hand;
+			button->UseVisualStyleBackColor = false;
+		}
+		button1->BackColor = expenseColor;
+		button2->BackColor = balanceColor;
+		button3->BackColor = todayColor;
+
+		array<TextBox^>^ textBoxes = gcnew array<TextBox^> { textBox1, textBox2, textBox3, textBox4 };
+		for each (TextBox^ textBox in textBoxes) {
+			textBox->BackColor = surface;
+			textBox->ForeColor = text;
+			textBox->BorderStyle = BorderStyle::FixedSingle;
+		}
+
+		comboBox1->BackColor = surface;
+		comboBox1->ForeColor = text;
+		comboBox1->DropDownStyle = ComboBoxStyle::DropDownList;
+
+		array<ListBox^>^ lists = gcnew array<ListBox^> { listBox1, listBox2, listBox3 };
+		for each (ListBox^ list in lists) {
+			list->BackColor = surface;
+			list->ForeColor = text;
+			list->BorderStyle = BorderStyle::FixedSingle;
+		}
+
+		array<Panel^>^ cards = gcnew array<Panel^> { panel1, panel2, panel3, panel4, panel5, panel6 };
+		for each (Panel^ card in cards) {
+			card->BackColor = surface;
+			card->BorderStyle = BorderStyle::FixedSingle;
+		}
+		panel1->BackColor = Color::FromArgb(226, 246, 237);
+		panel2->BackColor = Color::FromArgb(253, 232, 235);
+		panel3->BackColor = Color::FromArgb(229, 244, 250);
+		panel4->BackColor = Color::FromArgb(243, 235, 253);
+		panel5->BackColor = Color::FromArgb(255, 243, 221);
+		panel6->BackColor = Color::FromArgb(226, 237, 253);
+
+		array<Label^>^ metricLabels = gcnew array<Label^> { label5, label6, label8, label10, label12, label14 };
+		for each (Label^ label in metricLabels) {
+			label->ForeColor = primary;
+			label->Font = gcnew Drawing::Font(L"Segoe UI Semibold", 16);
+		}
+		label5->ForeColor = incomeColor;
+		label6->ForeColor = expenseColor;
+		label8->ForeColor = balanceColor;
+		label10->ForeColor = primary;
+		label12->ForeColor = todayColor;
+		label14->ForeColor = balanceColor;
+
+		array<Label^>^ captionLabels = gcnew array<Label^> { label4, label7, label9, label11, label13, label15 };
+		for each (Label^ label in captionLabels) {
+			label->ForeColor = mutedText;
+			label->Font = gcnew Drawing::Font(L"Segoe UI Semibold", 9);
+		}
+
+		this->dgvRecent->BackgroundColor = surface;
+		this->dgvRecent->BorderStyle = BorderStyle::FixedSingle;
+		this->dgvRecent->GridColor = Color::FromArgb(225, 230, 238);
+		this->dgvRecent->RowHeadersVisible = false;
+		this->dgvRecent->AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode::Fill;
+		this->dgvRecent->EnableHeadersVisualStyles = false;
+		this->dgvRecent->ColumnHeadersDefaultCellStyle->BackColor = primary;
+		this->dgvRecent->ColumnHeadersDefaultCellStyle->ForeColor = Color::White;
+		this->dgvRecent->ColumnHeadersDefaultCellStyle->Font = gcnew Drawing::Font(L"Segoe UI Semibold", 9);
+		this->dgvRecent->DefaultCellStyle->SelectionBackColor = Color::FromArgb(220, 232, 247);
+		this->dgvRecent->DefaultCellStyle->SelectionForeColor = text;
+		this->dgvRecent->AlternatingRowsDefaultCellStyle->BackColor = Color::FromArgb(248, 250, 253);
+
+		this->panel1->Location = Drawing::Point(24, 58);
+		this->panel2->Location = Drawing::Point(306, 58);
+		this->panel3->Location = Drawing::Point(24, 177);
+		this->panel4->Location = Drawing::Point(588, 177);
+		this->panel5->Location = Drawing::Point(306, 177);
+		this->panel6->Location = Drawing::Point(588, 58);
+		for each (Panel^ card in cards) {
+			card->Size = Drawing::Size(255, 100);
+		}
+		this->dgvRecent->Location = Drawing::Point(24, 306);
+		this->dgvRecent->Size = Drawing::Size(819, 150);
+		this->dgvRecent->Anchor = AnchorStyles::Top | AnchorStyles::Left | AnchorStyles::Right;
+
+		this->tabPage1->Text = L"Expenses";
+		this->tabPage2->Text = L"Tasks";
+		this->tabPage3->Text = L"Notes";
+		this->label1->Font = gcnew Drawing::Font(L"Segoe UI Semibold", 10);
+		this->label2->Font = gcnew Drawing::Font(L"Segoe UI Semibold", 10);
+		this->label3->Font = gcnew Drawing::Font(L"Segoe UI Semibold", 10);
+		this->label1->Location = Drawing::Point(34, 43);
+		this->label2->Location = Drawing::Point(34, 111);
+		this->label3->Location = Drawing::Point(34, 181);
+		this->textBox1->Location = Drawing::Point(154, 38);
+		this->comboBox1->Location = Drawing::Point(154, 106);
+		this->textBox2->Location = Drawing::Point(154, 174);
+		this->button1->Location = Drawing::Point(154, 232);
+		this->listBox1->Location = Drawing::Point(154, 282);
+		this->listBox1->Size = Drawing::Size(488, 130);
+		this->textBox3->Location = Drawing::Point(24, 24);
+		this->textBox3->Size = Drawing::Size(500, 32);
+		this->button2->Location = Drawing::Point(540, 24);
+		this->button2->Size = Drawing::Size(300, 38);
+		this->listBox2->Location = Drawing::Point(24, 82);
+		this->listBox2->Size = Drawing::Size(816, 330);
+		this->textBox4->Location = Drawing::Point(24, 24);
+		this->textBox4->Size = Drawing::Size(500, 32);
+		this->button3->Location = Drawing::Point(540, 24);
+		this->button3->Size = Drawing::Size(300, 38);
+		this->listBox3->Location = Drawing::Point(24, 82);
+		this->listBox3->Size = Drawing::Size(816, 330);
+	}
 	private: System::Void tabControl1_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
 	}
 	private: System::Void tabPage1_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -656,6 +814,10 @@ namespace MyProject {
 		label12->Text = "Rs. " + todayExpense.ToString("N2");
 		label10->Text = totalRecords.ToString();
 	}
-	};
+	private: System::Void panel1_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
+	}
+private: System::Void panel6_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
+}
+};
 }
 
